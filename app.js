@@ -196,34 +196,27 @@ synth.addEventListener("voiceschanged", voices);
 
 
 let isMuted = false;
+const muteButton = document.getElementById("mute");
 
-  const muteButton = document.getElementById("#mute");
-  addEventListener('click', () => {
-    isMuted = !isMuted; // toggle the mute state
-  
-  });
+muteButton.addEventListener('click', () => {
+  isMuted = !isMuted;
+  console.log("clicked"); // toggle the mute state
+  // console.log(isMuted); // toggle the mute state
+});
 
-  function toggleMute() {
-    if (isMuted) {
-      isMuted = false;
-    } else {
-      isMuted = true;
-    }
-    return isMuted;
-  }
-function textToSpeech(text,mute){
-  mute = toggleMute();
+function textToSpeech(text) {
+  console.log("yes");
+  console.log(isMuted);
   let utterance = new SpeechSynthesisUtterance(text);
-  for(let voice of synth.getVoices()){
-    if(voice.name === voiceList.value){
-        utterance.voice = voice;
+  for (let voice of synth.getVoices()) {
+    if (voice.name === voiceList.value) {
+      utterance.voice = voice;
     }
   }
 
-  if (!mute) {
+  if (isMuted) {
     synth.cancel(); // stop speaking if the mute flag is set
   } else {
     synth.speak(utterance);
   }
 }
-
